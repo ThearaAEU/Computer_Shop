@@ -6,14 +6,18 @@
     box-sizing: border-box;
 }
 
+html,body{
+    height: 100%;
+}
+
 body{
     background: #dee1e2;
     min-height: 100vh;
-    overflow: hidden;
+    overflow: auto;
 }
 
 header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -24,6 +28,7 @@ header {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 15px 15px rgba(0,0,0,0.05);
+    z-index: 1;
 }
 
 .logo{
@@ -47,9 +52,19 @@ header ul{
 
 }
 
+ul li a{
+    text-decoration: none;
+}
+
 header ul li{
     list-style: none;
+    z-index: 1;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding:30px 0px;
 }
+
 
 header ul li a{
     position: relative;
@@ -58,22 +73,62 @@ header ul li a{
     color: #333;
     text-transform: uppercase;
     letter-spacing: 0.2em;
+    padding: 30px 0px;
 }
 
 header ul li a::before{
     content: "";
     position: absolute;
-    bottom: -2px;
+    /* bottom: -2px;
     width: 100%;
-    height: 2px;
+    height: 2px; */
     background: #333;
     transform: scaleX(0);
     transition: transform 0.5s ease-in-out;
-    transform-origin:  right;
+    transform-origin: left;
 }
 header ul li a::after{
-    transform: scaleX(1);
+    /* transform: scaleX(1); */
     transform-origin:left ;
+}
+
+
+header ul li:hover ul, ul li ul:hover {
+    padding: 0px;
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    
+}
+
+header ul li ul li {
+    /* display: block;
+    white-space: nowrap; */
+    padding:0px;
+    width: 100%;
+}
+
+header ul li ul {
+    display: none;
+    position: absolute;
+    margin-top: 30px;
+    opacity: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    left: 0;
+}
+
+header ul li ul li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+header ul li ul li a:hover {
+    background-color: #f0f0f0;
 }
 
 header .search{
@@ -87,16 +142,17 @@ header .search{
 }
 
 .searchBox{
-    position: absolute;
+    position: fixed;
     right: -100%;
     width: 100%;
     height: 100%;
     display: flex;
-    background: #fff;
+    /* background: #fff; */
     align-items: center;
     /* padding: 0px 30px; */
     padding: 0px 40px;
     transition: 0.5s ease-in-out;
+    z-index: 1;
 }
 
 .searchBox.active{
@@ -112,7 +168,7 @@ header .search{
     font-size: 1.25em;
     background:#fff;
     border-bottom: 1px solid rgba(0, 0, 0 , 0.5);
-
+    z-index: 1;
 }
 
 .searchBtn{
@@ -133,8 +189,9 @@ header .search{
     scale: 0;
 }
 
+
 img{
-    height: 50vh;
+    height: 60vh;
 }
 
 .closeBtn.active{
@@ -153,10 +210,170 @@ img{
     margin: 80px 20px 0px 20px;
 }
 
+.form-row{
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.contact{
+    padding-left: 0px;
+}
+
+.space{
+    padding-right: 20px;
+}
+
+.form-group{
+    margin-bottom: 1rem;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.product-grid{
+    font-family: 'Jost', sans-serif;
+    text-align: center;
+}
+
+
+.product-grid .product-image{
+    overflow: hidden;
+    position: relative;
+}
+.product-grid .product-image a.image{ display: block; }
+.product-grid .product-image a.image:before{
+    content: '';
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .8) 100%);
+    width: 50%;
+    height: 100%;
+    transform: skewX(-25deg);
+    position: absolute;
+    top: 0;
+    left: -85%;
+    z-index: 1;
+}
+.product-grid:hover .product-image a.image:before{ animation: shine 1s; }
+.product-grid .product-image img{
+    width: 100%;
+    height: auto;
+}
+.product-grid .product-sale-label{
+    color: #fff;
+    background: #000;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 3px 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.product-grid .product-links{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    transform: translateY(-150px);
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transition: all .3s ease;
+}
+.product-grid:hover .product-links{ transform: translateY(0); }
+.product-grid .product-links li{ margin: 0 0 10px; }
+.product-grid .product-links li a{
+    color: #222;
+    background: #fff;
+    font-size: 15px;
+    text-align: center;
+    line-height: 36px;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+    display: block;
+    transition: all 0.3s ease 0s;
+}
+.product-grid .product-links li a:hover{
+    color: #fff;
+    background-color: #ed1d24;
+}
+.product-grid .product-content{ padding: 12px; }
+.product-grid .rating{ 
+    color: #fcae01;
+    font-size: 12px;
+    width: 97px;
+    padding: 0;
+    margin: 0 0 5px;
+    list-style: none;
+    vertical-align: top;
+    display: inline-block;
+}
+.product-grid .rating li{ display: inline-block; }
+.product-grid .rating li.far{ color: #999; }
+.product-grid .title{
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    margin: 0 0 5px;
+}
+.product-grid .title a{
+    color: #000;
+    transition: all 0.3s ease 0s;
+}
+.product-grid .title a:hover{ color:#ed1d24; }
+.product-grid .price{
+    color: #ed1d24;
+    font-size: 14px;
+    font-weight: 600;
+}
+.product-grid .price span{
+    color: rgba(0,0,0,0.50);
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+@keyframes shine{
+    100% { left: 125%; }
+}
+@media screen and (max-width: 990px){
+    .product-grid{ margin-bottom: 30px; }
+}
+
 @media (max-width:800px){
     .searchBtn{
         left: 0;
     }
+
+    header ul li ul {
+        display: none;
+        position: relative;
+        margin-top: 30px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ccc;
+    }
+
+    header ul li {
+        list-style: none;
+        z-index: 1;
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        padding: 0px;
+    }
+    header ul li ul li {
+        /* display: block;
+        white-space: nowrap; */
+        padding:0px;
+        width: 100%;
+    }
+    
+
     .menuToggle{
         position: absolute;
         display: block;
@@ -189,6 +406,10 @@ img{
 
     header.open .navigation li a{
         font-size: 1.25em;
+    }
+
+    body{
+        overflow-x: hidden;
     }
 
     img{
